@@ -1,0 +1,39 @@
+<div class="layout horizontal">
+  <div>
+    <div class="horizontal-section">
+      {{#flood-dropdown label="Country"}}
+        {{#flood-menu}}
+          {{flood-item label="Australia"}}
+          {{flood-item label="New Zealand"}}
+          {{flood-item label="United States"}}
+          {{flood-item label="Canada"}}
+          {{flood-item label="United Kingdom"}}
+          {{flood-item label="Germany"}}
+        {{/flood-menu}}
+      {{/flood-dropdown}}
+    </div>
+  </div>
+
+  <div>
+    <div class="horizontal-section">
+      {{#flood-menu}}
+        {{flood-item label="Item 1"}}
+        {{flood-item label="Item 2" disabled=true}}
+        {{flood-item label="Item 3" disabled=true}}
+        {{flood-item label="Item 4"}}
+        {{flood-item label="Item 5"}}
+      {{/flood-menu}}
+    </div>
+  </div>
+
+  <div>
+    <div class="horizontal-section">
+      {{#flood-menu}}
+        {{flood-item label="Item 1"}}
+        {{flood-item label="Item 2"}}
+        {{flood-item label="Item 3" disabled=true}}
+      {{/flood-menu}}
+    </div>
+  </div>
+
+</div>

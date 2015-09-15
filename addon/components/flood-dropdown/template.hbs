@@ -1,0 +1,9 @@
+<button trigger
+  disabled={{disabled}}
+  {{action "toggleDropdown"}}
+>
+  {{label}}
+</button>
+{{#if isOpen}}
+  <flood-dropdown-content>{{yield}}</flood-dropdown-content>
+{{/if}}

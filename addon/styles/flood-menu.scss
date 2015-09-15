@@ -1,0 +1,78 @@
+[disabled] {
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+flood-menu {
+  display: block;
+  padding: 8px 0;
+  background: white;
+  color: #212121;
+
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 24px;
+
+  max-width: $menu-width;
+
+  button {
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.018em;
+    line-height: 24px;
+    text-transform: uppercase;
+  }
+}
+
+flood-item {
+  display: block;
+  min-height: 48px;
+  padding: 0px 16px;
+  user-select: none;
+  -webkit-user-select: none;
+  cursor: default;
+
+  *:not(:first-child):not(:last-child) {
+    margin-right: 16px;
+  }
+  @extend .layout.horizontal;
+  @extend .layout.center;
+  @extend .paper-font-subhead;
+}
+
+.horizontal-section:not([style-scope]):not(.style-scope) {
+  background-color: #FFF;
+  // padding: 24px;
+  margin-right: 24px;
+  min-width: 200px;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14),
+              0 1px 5px 0 rgba(0, 0, 0, 0.12),
+              0 3px 1px -2px rgba(0, 0, 0, 0.2);
+}
+
+.selectable-content > .is-selected {
+  font-weight: bold;
+}
+
+.selectable-content > [disabled] {
+  // color: var(--paper-menu-disabled-color, --disabled-text-color);
+}
+
+.selectable-content > *:focus {
+  position: relative;
+  outline: 0;
+  background: #eee;
+}
+
+.selectable-content > *:focus:after {
+  @extent .layout-fit;
+  background: currentColor;
+  opacity: 0.12;
+  content: '';
+
+  // @apply(--paper-menu-focused-item-after);
+}
+
+.selectable-content > *[colored]:focus:after {
+  opacity: 0.26;
+}
