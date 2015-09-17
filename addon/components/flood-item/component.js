@@ -45,5 +45,6 @@ export default Ember.Component.extend(Registerable, {
     if (this.get('disabled')) { return; }
     var parent = this.get('parentComponent');
     parent.selectItem(this);
+    this.sendAction('action');
   }
 });
