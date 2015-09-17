@@ -1,16 +1,14 @@
 import Ember from 'ember';
 import layout from './template';
 
-const {service} = Ember.inject;
-export default Ember.Component.extend({
+import ScrollLockManager from '../../mixins/scroll-lock-manager';
+import StyleBinding from '../../mixins/style-binding';
+
+export default Ember.Component.extend(ScrollLockManager, StyleBinding, {
   layout: layout,
   tagName: 'flood-dropdown',
 
-  dropdown: service(),
-
   label: "Select Country",
-
-  isOpen: Ember.computed.readOnly('dropdown.isOpen'),
 
   attributeBindings: [
     'tabIndex:tabindex',
@@ -21,9 +19,14 @@ export default Ember.Component.extend({
 
   disabled: false,
 
+  isOpen: false,
+
   _positionRect: {},
 
+  styles: {},
+
   didInsertElement() {
+    this._super(...arguments);
     this.calculatePositionRect();
   },
 
@@ -32,6 +35,11 @@ export default Ember.Component.extend({
 
     if (isOpen) {
       Ember.run.schedule('afterRender', this, this._focusContent);
+      Ember.run.schedule('afterRender', this, this._updateOverlayPosition);
+
+      // this.lockElementForScrolling(this.get('elementId'));
+    }else{
+      // Ember.run.schedule('afterRender', this, this.unlockElementForScrolling, this.get('elementId'));
     }
   }),
 
@@ -74,23 +82,37 @@ export default Ember.Component.extend({
   verticalOffset: 0,
 
   positionTarget: Ember.computed('element', function() {
-    if (this.element) {
-      return this.element.querySelector('button[trigger]');
-    }
+    return this.element;
   }),
 
   actions: {
     toggleDropdown() {
-      this.get('dropdown').toggle();
+      this.toggle();
+    }
+  },
+
+  close(){
+    this.set('isOpen', false);
+  },
+
+  open() {
+    this.set('isOpen', true);
+  },
+
+  toggle() {
+    if(this.get('isOpen')) {
+      this.close();
+    }else{
+      this.open();
     }
   },
 
   containedElement: Ember.computed('isOpen', 'element', '_state', {
-    get: function() {
+    get() {
       if (!this.element) { return null; }
       let content = this.element.querySelector('flood-dropdown-content');
       if (content) {
-        return content.childNodes[0];
+        return content.children[0];
       }else{
         return null;
       }
@@ -98,8 +120,15 @@ export default Ember.Component.extend({
   }),
 
   calculatePositionRect() {
-    this.set('_positionRect', this.get('positionTarget').getBoundingClientRect());
+    const positionTarget = this.get('positionTarget');
+    if (Ember.isPresent(positionTarget)) {
+      this.set('_positionRect', this.get('positionTarget').getBoundingClientRect());
+    }
   },
+
+  positionTargetChanged: Ember.observer('positionTarget', function() {
+    this.calculatePositionRect();
+  }),
 
   _horizontalAlignTargetValue: Ember.computed('horizontalAlign', 'horizontalOffset', '_positionRect', {
     get: function() {
@@ -130,15 +159,46 @@ export default Ember.Component.extend({
     }
   }),
 
-  focusOut() {
-    // console.log(this.$(), document.activeElement);
-    if (this.$().has(document.activeElement).length === 0) {
-      // this.get('dropdown').close();
-    }
+  _updateOverlayPosition() {
+    this._positionRectMemo = null;
+
+    let styles = this.getWithDefault('styles', {});
+
+    styles[this.get('horizontalAlign')] =
+      this.get('_horizontalAlignTargetValue') + 'px';
+
+    styles[this.get('verticalAlign')] =
+      this.get('_verticalAlignTargetValue') + 'px';
+
+    // NOTE(cdata): We re-memoize inline styles here, otherwise
+    // calling `refit` from `IronFitBehavior` will reset inline styles
+    // to whatever they were when the dropdown first opened.
+    // if (this._fitInfo) {
+    //   this._fitInfo.inlineStyle[this.horizontalAlign] =
+    //     styles[this.horizontalAlign];
+
+    //   this._fitInfo.inlineStyle[this.verticalAlign] =
+    //     styles[this.verticalAlign];
+    // }
+    this.set('styles', styles);
+    this.propertyDidChange('styles');
   },
 
+  // focusIn() {
+  //   console.log(document.activeElement);
+  // },
+
+  // focusOut() {
+  //   // console.log(this.$());
+  //   if (this.$().has(document.activeElement).length === 0) {
+
+  //     // this.get('dropdown').close();
+  //   }
+  // },
+
   _focusContent() {
-    // this._focusElement(this.get('containedElement'));
+    // console.log(this.get('containedElement'));
+    this._focusElement(this.get('containedElement'));
   },
 
   _focusElement(element) {

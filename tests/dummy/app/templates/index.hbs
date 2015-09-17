@@ -1,16 +1,7 @@
 <div class="layout horizontal">
   <div>
     <div class="horizontal-section">
-      {{#flood-dropdown label="Country"}}
-        {{#flood-menu}}
-          {{flood-item label="Australia"}}
-          {{flood-item label="New Zealand"}}
-          {{flood-item label="United States"}}
-          {{flood-item label="Canada"}}
-          {{flood-item label="United Kingdom"}}
-          {{flood-item label="Germany"}}
-        {{/flood-menu}}
-      {{/flood-dropdown}}
+      {{flood-select label="Country" items=countries itemLabelPath="name"}}
     </div>
   </div>
 

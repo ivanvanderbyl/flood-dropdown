@@ -52,27 +52,13 @@ export default Ember.Mixin.create({
   concatentatedProperties: ['style'],
   attributeBindings: ['computedStyle:style'],
 
-  computedStyle: Ember.computed('styles.@each', function() {
+  computedStyle: Ember.computed('styles.[]', function() {
     const styles = this.get('styles');
 
     return Object.keys(styles).map((key) => {
       return buildRule(key, styles[key]);
     }).join(' ');
   }),
-
-  // interpretRule(rule) {
-  //   let parts = rule.split(':');
-  //   return parts.map(this.parseRuleBinding);
-  // },
-
-  // parseRuleBinding(part) {
-  //   const bindingSyntax = /\[(\w+)\]/;
-  //   if (/\[\w+\]/.test(part)) {
-
-  //   }else{
-  //     return part;
-  //   }
-  // },
 
   /**
    * Bound styles object

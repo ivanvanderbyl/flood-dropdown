@@ -64,13 +64,13 @@ export default Ember.Mixin.create({
     // this.set('selectedIndex', index);
   },
 
-  _valueForItem(item) {
-    const valuePath = this.get('valuePath');
-    return Ember.get(item, valuePath);
-  },
+  // _valueForItem(item) {
+  //   const valuePath = this.get('valuePath');
+  //   return Ember.get(item, valuePath);
+  // },
 
-  _selectionChanged: Ember.observer('selectedIndex', function() {
+  // _selectionChanged: Ember.observer('selectedIndex', function() {
 
-  }),
+  // }),
 
 });

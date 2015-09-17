@@ -33,6 +33,11 @@ export default Ember.Component.extend(Registry, Focussable, Selectable, KeyBindi
     'space': 'activateFocussed',
   },
 
+  selectedItemChanged: Ember.observer('selectedIndex', function() {
+    let index = this.get('selectedIndex');
+    this.sendAction('select', this.get('registeredComponents').objectAt(index));
+  }),
+
   selectItem(item) {
     if (item.get('disabled')) { return; }
     this.focusItem(item);

@@ -13,8 +13,6 @@ export default Ember.Mixin.create({
    */
   focusedIndex: null,
 
-  items: Ember.required(),
-
   registerItem(item) {
     this.get('items').addObject(item);
   },

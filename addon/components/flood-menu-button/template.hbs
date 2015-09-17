@@ -1,0 +1,8 @@
+<button class="dropdown-trigger" {{action "toggleDropdown"}}>{{label}}</button>
+
+{{#flood-dropdown
+  isOpen=isOpen
+  positionTarget=triggerElement
+  verticalOffset=verticalOffset}}
+  {{yield}}
+{{/flood-dropdown}}

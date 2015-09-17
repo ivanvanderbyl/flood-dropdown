@@ -8,8 +8,6 @@ export default Ember.Mixin.create({
    */
   focusedIndex: null,
 
-  selectedIndex: Ember.required(),
-
   focusItemAt(index) {
     this.set('focusedIndex', index);
   },

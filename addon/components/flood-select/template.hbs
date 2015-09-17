@@ -1,0 +1,16 @@
+{{#flood-menu-button
+  target=this
+  verticalAlign="top"
+  horizontalAlign="right"
+  disabled=disabled
+  isOpen=isOpen
+  placeholder=placeholder
+  label=label
+  verticalOffset=verticalOffset
+  action=(action "toggleDropdown")}}
+{{#flood-menu select=(action "handleSelect")}}
+  {{#each items as |item index|}}
+    {{flood-item label=(get item itemLabelPath) value=(get item itemValuePath) index=index}}
+  {{/each}}
+{{/flood-menu}}
+{{/flood-menu-button}}
