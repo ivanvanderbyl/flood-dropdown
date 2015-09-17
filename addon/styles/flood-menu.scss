@@ -38,6 +38,19 @@ flood-item {
   @extend .layout.horizontal;
   @extend .layout.center;
   @extend .paper-font-subhead;
+
+  &[two-line] {
+    min-height: 72px;
+  }
+
+  &[three-line] {
+    min-height: 88px;
+  }
+
+  [secondary] {
+    color: #757575;
+    @extend(.paper-font-body1);
+  }
 }
 
 .horizontal-section:not([style-scope]):not(.style-scope) {

@@ -19,6 +19,7 @@ flood-menu-button {
 flood-dropdown {
   overflow-y: auto;
   position: fixed;
+  z-index: 10000;
 
   &> * {
     overflow: auto;
