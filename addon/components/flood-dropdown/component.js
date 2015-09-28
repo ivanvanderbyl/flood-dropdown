@@ -25,6 +25,15 @@ export default Ember.Component.extend(ScrollLockManager, StyleBinding, {
 
   styles: {},
 
+  init() {
+    this._super();
+    this.set("_positionRect", {});
+    this.set("_styles", {});
+    this.set("isOpen", false);
+    this.set("disabled", false);
+    this.set("label", "Select");
+  },
+
   didInsertElement() {
     this._super(...arguments);
     this.calculatePositionRect();
