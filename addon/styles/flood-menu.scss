@@ -49,7 +49,7 @@ flood-item {
 
   [secondary] {
     color: #757575;
-    @extend(.paper-font-body1);
+    @extend .paper-font-body1;
   }
 }
 
