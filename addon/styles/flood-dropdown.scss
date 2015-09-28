@@ -47,6 +47,6 @@ flood-dropdown {
 $size: 64;
 $menu-width: $size * 5px;
 
-@import "flood-menu";
-@import "paper/layout";
 @import "paper/typography";
+@import "paper/layout";
+@import "flood-menu";

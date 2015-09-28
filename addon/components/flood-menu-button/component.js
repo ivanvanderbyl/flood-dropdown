@@ -25,7 +25,7 @@ export default Ember.Component.extend(ControlState, {
   triggerElement: null,
 
   didInsertElement() {
-    this.set('triggerElement', this.element.querySelector('.dropdown-trigger'));
+    this.set('triggerElement', this.$('.dropdown-trigger')[0]);
     this._super(...arguments);
   },
 
